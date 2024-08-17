@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Result</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="./css/resultPage_style.css" />
+  </head>
+  <body>
+    <div class="logo">
+      <img src="../pictures/moveog.png" alt="Moveo group logo" height="100" />
+    </div>
+    <div class="container">
+      <h1>Song Details</h1>
+      <div id="songDetails"></div>
+      <button onclick="goBack()" class="button">Back to Search</button>
+    </div>
+    <script>
+      const socket = io();
+      function displaySongDetails() {
+        const songsData = JSON.parse(sessionStorage.getItem("songResult"));
+        console.log(songsData);
+
+        if (songsData) {
+          for (const songData of songsData) {
+            document.getElementById("songDetails").insertAdjacentHTML(
+              "beforeend",
+              `
+            <h2>${songData.title}</h2>
+            <p><strong>Artist:</strong> ${songData.artist}</p>
+            <img class="songImage" src="${songData.image}" alt="${songData.title}" />
+            <button onclick="select(${songData.id})" class=" button selectButton">Select</button>
+          `
+            );
+          }
+        } else {
+          document.getElementById(
+            "songDetails"
+          ).innerHTML = `<p>No song details available.</p>`;
+        }
+      }
+
+      function goBack() {
+        window.location.href = "/mainPageAdmin";
+      }
+
+      function select(songId) {
+        // Emit the selected song data to the server
+        const songsData = JSON.parse(sessionStorage.getItem("songResult"));
+        const song = songsData.find((song) => song.id === songId);
+        socket.emit("adminSelectSong", song);
+
+        // Redirect the admin to the live room
+        window.location.href = "/liveRoom";
+      }
+
+      // Display song details when the page loads
+      window.onload = displaySongDetails;
+    </script>
+  </body>
+</html>

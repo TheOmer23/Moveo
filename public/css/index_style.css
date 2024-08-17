@@ -1,0 +1,98 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%; /* Make sure the body takes up the full height */
+    margin: 0;
+    padding: 0;
+}
+
+
+div{
+    background-color: #F4D9D0;
+}
+
+.welcome-container {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 40px;
+}
+  
+  h1 {
+    color: #C75B7A; /* Dark Blue */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    color: #C75B7A; /* Medium Blue */
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  #admins {
+    display: inline-block;
+    font-size: large;
+    background-color: #921A40; /* Dark Blue */
+    color: white;
+    padding: 20px 20px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  #signup {
+    display: inline-block;
+    font-size: large;
+    background-color: #921A40; /* Dark Blue */
+    color: white;
+    padding: 20px 44px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  #login {
+    display: inline-block;
+    font-size: large;
+    background-color: #921A40; /* Dark Blue */
+    color: white;
+    padding: 20px 52px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-form:hover {
+    background-color: #7FA1C3; /* Medium Blue */
+  }
+  
+  .signup-form:active {
+    background-color: #E2DAD6; /* Light Gray */
+    color: #6482AD; /* Dark Blue */
+  }
+  
+  @media (max-width: 600px) {
+    .welcome-container {
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    p {
+      font-size: 1rem;
+    }
+  
+    .signup-form {
+      padding: 8px 16px;
+    }
+  }
+  

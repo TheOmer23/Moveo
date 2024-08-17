@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+html{
+    font-family: "Poppins", sans-serif;
+    height: 100%;
+    background-color: #e5e5f7;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 10px ), repeating-linear-gradient( #ef827444, #ef827444 );
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container.rtl {
+    direction: rtl;
+}
+
+
+#songDetails {
+    background-color: rgba(255, 255,255, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.07);
+    padding: 24px 16px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start;
+    gap: 8px;
+    margin: auto;
+    max-height: 350px;
+    overflow: scroll;
+}
+
+.songRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.rowPart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.partChord {
+    color: blue;
+}
+
+#quitButton {
+    background-color: rgba(255, 255,255, 0.7);
+    border-radius: 10px;
+    box-shadow: 5px 5px 30px rgba(0,0,0,0.15);
+    padding: 6px 24px;
+    border: 1px solid black;
+    margin: 20px auto;
+    font-size: 24px;
+    letter-spacing: 1.97px;
+}
+
+#autoScrollToggle {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 24px;
+    box-shadow: 1px 1px 40px rgba(0,0,0,0.07);
+    background-color: firebrick;
+    font-size: 20px;
+    font-weight: 600;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: whitesmoke
+}
+
+#autoScrollToggle.active {
+    background-color: green;
+}
+
+
+

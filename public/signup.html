@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/signup_style.css" />
+    <title>Sign up</title>
+  </head>
+  <body>
+    <div class="logo">
+      <img src="../pictures/moveog.png" alt="Moveo group logo" height="100"/>
+    </div>
+    <h1>SIGN UP</h1>
+    <p>Please enter the following information:</p>
+    <form action="/signup" method="POST" class="signup-form">
+      <label for="username">Username:</label>
+      <input type="text" name="username" required /><br />
+      <label for="password">Password:</label>
+      <input type="password" name="password" required /><br />
+      <label for="instrument">Instrument:</label>
+      <select name="instrument" required>
+        <option value="" disabled selected>Select instrument</option>
+        <option value="guitar" class="instruments">Guitar</option>
+        <option value="piano" class="instruments">Piano</option>
+        <option value="drums" class="instruments">Drums</option>
+        <option value="bass" class="instruments">Bass</option>
+        <option value="violin" class="instruments">Violin</option>
+        <option value="saxophone" class="instruments">Saxophone</option>
+        <option value="flute" class="instruments">Flute</option>
+        <option value="singer" class="singer">Singer</option>
+      </select><br />
+      <button type="submit" id="signupButton" >Signup</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Room</title>
+    <link rel="stylesheet" href="./css/live_room_stryle.css" />
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="logo">
+      <img src="../pictures/moveog.png" alt="Moveo group logo" height="100" />
+    </div>
+    <div class="container">
+      <h1 id="songTitle"></h1>
+      <h3 id="artits"></h3>
+      <button id="autoScrollToggle" onclick="toggleScroll()">
+        Start Auto Scroll
+      </button>
+      <div id="songDetails"></div>
+    </div>
+    <script>
+      const socket = io();
+      const isAdmin = JSON.parse(
+        window.sessionStorage.getItem("userDetails")
+      )?.isAdmin;
+      const isSinger =
+        JSON.parse(window.sessionStorage.getItem("userDetails"))?.instrument ===
+        "singer";
+      // Listen for the selected song data from the server
+      socket.on("songData", (song) => {
+        displaySong(song);
+      });
+      const songDetails = document.querySelector("#songDetails");
+
+      function quit() {
+        socket.emit("adminEndSession");
+      }
+
+      socket.on("moveBackToMainRoom", () => {
+        console.log("im being moved to player waiting room");
+        if (isAdmin) window.location.href = "/mainPageAdmin";
+        else window.location.href = "/mainPagePlayer";
+      });
+
+      if (isAdmin) {
+        document
+          .querySelector(".container")
+          .insertAdjacentHTML(
+            "beforeend",
+            `<button onclick="quit()" id="quitButton">Quit</button>`
+          );
+      }
+
+      function displaySong(song) {
+        document.querySelector("#songTitle").innerHTML = song.title;
+        document.querySelector("#artits").innerHTML = song.artist;
+        if (song.isHebrew) {
+          document.querySelector(".container").classList.add("rtl");
+        }
+        for (const row of song.lyricsAndChords) {
+          const songRow = document.createElement("div");
+          songRow.classList.add("songRow");
+          for (const chordAndLyric of row) {
+            const part = document.createElement("div");
+            part.classList.add("rowPart");
+            const chord = document.createElement("span");
+            chord.classList.add("partChord");
+            const lyric = document.createElement("span");
+            lyric.classList.add("partLyric");
+            chord.innerText = !isSinger ? chordAndLyric.chords || "" : "";
+            lyric.innerText = chordAndLyric.lyrics || "";
+            part.appendChild(chord);
+            part.appendChild(lyric);
+            songRow.appendChild(part);
+          }
+          songDetails.appendChild(songRow);
+        }
+      }
+
+      let isAutoScrollOn = false;
+      let scrollPosition = 0;
+
+      function toggleScroll() {
+        const scrollHeight = songDetails.scrollHeight;
+        const button = document.querySelector("#autoScrollToggle");
+        button.classList.toggle("active");
+        isAutoScrollOn = !isAutoScrollOn;
+        button.innerText = isAutoScrollOn
+          ? "Stop Auto Scroll"
+          : "Start Auto Scroll";
+
+        function scrollStep() {
+          if (!isAutoScrollOn) return;
+          scrollPosition += 0.2;
+          songDetails.scrollTop = scrollPosition;
+
+          if (scrollPosition < scrollHeight - songDetails.clientHeight) {
+            window.requestAnimationFrame(scrollStep);
+          }
+        }
+
+        scrollStep();
+      }
+    </script>
+  </body>
+</html>

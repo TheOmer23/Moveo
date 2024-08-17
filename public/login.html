@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/login_style.css" />
+  </head>
+  <body>
+    <div class="logo">
+      <img src="../pictures/moveog.png" alt="Moveo group logo" height="100" />
+    </div>
+    <div class="login-container">
+      <h1>Login</h1>
+      <p>Please enter your username and password:</p>
+      <form id="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required /><br />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required /><br />
+        <button type="submit" id="loginButton">Login</button>
+      </form>
+    </div>
+    <script>
+      document
+        .querySelector("#login-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          try {
+            const response = await fetch("/login", {
+              method: "POST",
+              body: new URLSearchParams(formData),
+            });
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || "Something went wrong");
+            }
+            const result = await response.json();
+            window.sessionStorage.setItem(
+              "userDetails",
+              JSON.stringify(result)
+            );
+            window.location.replace(
+              result.isAdmin
+                ? `http://${location.host}/mainPageAdmin`
+                : `http://${location.host}/mainPagePlayer`
+            );
+          } catch (error) {
+            alert(error);
+          }
+        });
+    </script>
+  </body>
+</html>
