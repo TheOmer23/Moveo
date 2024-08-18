@@ -118,7 +118,7 @@ io.on('connection', (socket) => {
         socket.emit('songData', currentSong);
     }
     
-    // Listen for an event from the admin to move all users
+    // Listen for an event from the admin 
     socket.on('adminSelectSong', () => {
         console.log('Admin selected a song, moving all users to the live room...');
         io.emit('moveToLiveRoom');  // Broadcast to all users
@@ -126,7 +126,7 @@ io.on('connection', (socket) => {
 
     socket.on('adminSelectSong', (songData) => {
         console.log('Admin selected a song:', songData.title);
-        currentSong = songData;  // Store the selected song
+        currentSong = songData;  
         io.emit('songData', currentSong);  // Broadcast the song data to all users
     });
 

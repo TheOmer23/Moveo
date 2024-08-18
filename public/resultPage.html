@@ -51,11 +51,9 @@
         const song = songsData.find((song) => song.id === songId);
         socket.emit("adminSelectSong", song);
 
-        // Redirect the admin to the live room
         window.location.href = "/liveRoom";
       }
 
-      // Display song details when the page loads
       window.onload = displaySongDetails;
     </script>
   </body>

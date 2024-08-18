@@ -38,9 +38,7 @@
           const result = await response.json();
 
           if (result.success) {
-            // Store the result in session storage
             sessionStorage.setItem("songResult", JSON.stringify(result.data));
-            // Redirect to the result page
             window.location.href = "resultPage";
           } else {
             alert("No results found");

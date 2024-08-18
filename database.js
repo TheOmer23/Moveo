@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+// create a new user and save it to the database
 export const createUser = async (user, isAdmin)=>{
     const encryptPassword = await bcrypt.hash(user.password, saltRounds);
     user.password = encryptPassword 
@@ -21,6 +22,7 @@ export const createUser = async (user, isAdmin)=>{
     console.log(savedUser);
 }
 
+// connect to MongoDB database
 export const connectDB = async (dbName) => {
     try{
         const mongoDB = process.env.MONGO_DB.replace(`<dbname>`, dbName);
